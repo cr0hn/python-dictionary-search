@@ -46,7 +46,7 @@ print("Search All (path as tuple): ", search_all(d, "c", path_as_string=False))
 
 After running the code, you will see:
 
-``````bash
+```bash
 > python examples/example.py
 Search First:  ('a.b.c', 'C value 1')
 Search All:  [('a.b.c', 'C value 1'), ('h.c', 'C value 2')]
