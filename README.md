@@ -5,6 +5,7 @@
 ![Python Versions](https://img.shields.io/badge/Python-3.8%20%7C%203.9%20%7C%203.10-blue)
 
 In a nutshell ``Dictionary Search`` is a small library to search in a dictionaries recursively.
+Also have some other dictionary tools to make your life easier.
 
 # Install
 
@@ -12,7 +13,7 @@ In a nutshell ``Dictionary Search`` is a small library to search in a dictionari
 > pip install dictionary-search
 ```
 
-# Usage example
+# Search
 
 ```python
 # File: example.py
@@ -55,6 +56,19 @@ Search First (path as tuple):  (('a', 'b', 'c'), 'C value 1')
 Search All (path as tuple):  [(('a', 'b', 'c'), 'C value 1'), (('h', 'c'), 'C value 2')]
 ```
 
+# Flat and Nest
+
+Allow you to flat and rebuild a dict. Nest only work with str and index keys.
+
+```python
+data = {"a": {"b": 1, "c": 2}}
+flat_data = flat(data) # will produce: [("a.b", 1), ("a.c", 2)]
+assert data == nest(flat_data)
+```
+
+> TODO: describe list
+
+If you want more information, please take a look to our test
 
 
 # Authors
