@@ -10,8 +10,8 @@ def _search(current, target, path) -> Tuple[str, object]:
             for res in _search(y, target, (*path, x)):
                 yield res
     elif isinstance(current, list):
-        for item in current:
-            for res in _search(item, target, path):
+        for i, item in enumerate(current):
+            for res in _search(item, target, (*path, f"[{i}]")):
                 yield res
 
 
