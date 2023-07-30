@@ -33,3 +33,9 @@ def test_list_nesting():
 def test_index_nesting():
     d = [("[0]", 1), ("[1]", 2), ("[2]", 3)]
     assert nest(d) == [1, 2, 3]
+
+
+def test_empty_list_nested():
+    d = [('_meta.operators', [])]
+
+    assert nest(d) == {'_meta': {'operators': []}}

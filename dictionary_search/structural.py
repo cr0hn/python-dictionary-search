@@ -1,6 +1,5 @@
 from typing import Iterable, List, Any, Tuple
 from functools import singledispatch, reduce
-from itertools import groupby
 
 
 def __next_current(current: str, n: str):
@@ -23,6 +22,9 @@ def _(d: dict, current: str = "") -> Iterable[tuple]:
 
 @flat.register(list)
 def _(l: list, current: str = "") -> Iterable[tuple]:
+    if len(l) == 0:
+        yield current, l
+        return  
     for i, v in enumerate(l):
         nc = __next_current(current, f"[{i}]")
         yield from flat(v, nc)
@@ -34,17 +36,23 @@ def __part_type(part: str) -> str | int:
     return part
 
 
+# TODO: please structural pattern matching this
 def __nest_recursion(data, part_value):
     parts, value = part_value
     if isinstance(parts, list) and len(parts) == 1:
-        if isinstance(parts[0], int) and len(data) <= parts[0]:
-            data.extend([None] * (parts[0] - len(data) + 1))
+        if isinstance(parts[0], int):
+            if len(data) == 0:
+                data = []
+            if len(data) <= parts[0]:
+                data.extend([None] * (parts[0] - len(data) + 1))
         data[parts[0]] = value
     elif isinstance(parts, list) and isinstance(parts[0], str):
         if parts[0] not in data:
             data[parts[0]] = {}
         data[parts[0]] = __nest_recursion(data[parts[0]], (parts[1:], value))
     elif isinstance(parts[0], int):
+        if len(data) == 0:
+            data = []
         if len(data) <= parts[0]:
             data.extend([None] * (parts[0] - len(data) + 1))
         data[parts[0]] = __nest_recursion(data[parts[0]], (parts[1:], value))

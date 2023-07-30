@@ -25,6 +25,13 @@ def test_simple_list():
     assert res == [("[0]", 1), ("[1]", 2), ("[2]", 3)]
 
 
+def test_nested_empty_list():
+    l = {"a": {"b": []}}
+
+    res = list(flat(l))
+
+    assert res == [("a.b", [])]
+
 def test_nested_list():
     l = [1, [2, 3]]
 
